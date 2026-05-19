@@ -1,0 +1,181 @@
+.hero-transition-master {
+  width: 100%;
+  overflow-x: hidden;
+  background-color: var(--background);
+}
+
+.hero-section {
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  background-color: var(--background);
+  position: relative;
+
+  > * {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+  }
+
+  .hero-content {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    flex: 0 0 50%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+
+    .hero-image-wrapper {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      filter: grayscale(100%);
+      transition: filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+      &:hover {
+        filter: grayscale(0%);
+      }
+
+      img {
+        object-fit: cover;
+      }
+      
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.1%22/%3E%3C/svg%3E');
+        mix-blend-mode: overlay;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .hero-right {
+    flex: 0 0 50%;
+    height: 100%;
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+    .hero-text-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      h1 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-90deg);
+        font-family: var(--font-macro);
+        font-size: clamp(6rem, 12vw, 16rem);
+        font-weight: 500;
+        line-height: 0.85;
+        text-transform: uppercase;
+        letter-spacing: -0.04em;
+        margin: 0;
+        white-space: nowrap;
+        color: var(--foreground);
+        pointer-events: none;
+      }
+    }
+
+    .hero-editorial-block {
+      position: absolute;
+      bottom: 4rem;
+      right: 4rem;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1rem;
+      z-index: 5;
+      max-width: 300px;
+
+      .hazard-line {
+        width: 100%;
+        height: 4px;
+        background-color: var(--accent-red);
+        margin-bottom: 0.5rem;
+      }
+
+      .manifesto-text {
+        p {
+          font-family: var(--font-macro);
+          font-size: 1.5rem;
+          font-weight: 700;
+          line-height: 1.1;
+          text-transform: uppercase;
+          margin: 0;
+          color: var(--foreground);
+          letter-spacing: -0.02em;
+        }
+
+        .highlight-block {
+          background-color: var(--foreground);
+          color: var(--background);
+          display: inline-block;
+          padding: 0.1em 0.3em;
+          margin: 0.1em 0;
+        }
+      }
+
+      .editorial-meta {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 0.5rem;
+        
+        .warning-text {
+          color: var(--accent-red);
+        }
+      }
+    }
+  }
+
+  .next-section-reveal {
+    width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    transform: translateX(-100%);
+    z-index: 5;
+    background-color: var(--background);
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-section {
+    flex-direction: column;
+
+    .hero-left {
+      flex: 0 0 60%;
+      width: 100%;
+    }
+
+    .hero-right {
+      flex: 0 0 40%;
+      width: 100%;
+      padding: 2rem;
+
+      .hero-text-wrapper h1 {
+        transform: rotate(0);
+        font-size: clamp(4rem, 12vw, 8rem);
+      }
+
+      .hero-editorial-block {
+        bottom: 2rem;
+        right: 2rem;
+      }
+    }
+  }
+}

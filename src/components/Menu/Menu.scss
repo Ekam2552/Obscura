@@ -1,0 +1,106 @@
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--foreground); // pitch black
+  color: var(--background);
+  z-index: 90; // Below navbar
+  display: flex;
+  align-items: center;
+  padding: 0 4rem;
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); // initial closed state
+
+  .menu-images {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+
+    .menu-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: scale(1.1);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      
+      &.active {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      img {
+        object-fit: cover;
+      }
+      
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, var(--foreground) 0%, transparent 40%);
+      }
+    }
+  }
+
+  .menu-links {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    .menu-item {
+      font-family: var(--font-macro);
+      font-size: clamp(4rem, 9vw, 12rem);
+      line-height: 0.85;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: color 0.3s ease;
+      
+      &:hover {
+        color: var(--background);
+      }
+
+      // Dim non-hovered items
+      &:not(:hover) {
+        color: rgba(244, 244, 240, 0.4); // dimmed white
+      }
+    }
+  }
+}
+
+// When the menu wrapper is hovered, dim everything. The item itself brightens up due to the rules above.
+.menu-links:hover .menu-item {
+  color: rgba(244, 244, 240, 0.4);
+}
+.menu-links:hover .menu-item:hover {
+  color: var(--background);
+  padding-left: 2vw; // bold shift
+  transition: padding-left 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .menu-overlay {
+    padding: 0 2rem;
+    
+    .menu-images {
+      width: 100vw;
+      opacity: 0.3; // Make it a background on mobile
+      
+      .menu-image::after {
+        background: linear-gradient(to right, var(--foreground) 0%, transparent 100%);
+      }
+    }
+  }
+}

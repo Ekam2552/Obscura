@@ -1,0 +1,115 @@
+.editorial-grid-section {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: var(--background);
+  position: relative;
+  overflow: hidden;
+  padding: 4rem;
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(300px, auto);
+    gap: 4rem;
+    width: 100%;
+    min-height: 100vh;
+    max-width: 1800px;
+    margin: 0 auto;
+
+    .grid-cell {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+
+      &.col-span-3 { grid-column: span 3; }
+      &.col-span-4 { grid-column: span 4; }
+      &.col-span-5 { grid-column: span 5; }
+      &.col-span-7 { grid-column: span 7; }
+      &.col-span-12 { grid-column: span 12; }
+      
+      &.row-span-2 { grid-row: span 2; }
+
+      .cell-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: #eee;
+      }
+
+      .cell-meta {
+        margin-top: 1.5rem;
+      }
+
+      &.h-screen-100 {
+        height: 100vh;
+      }
+    }
+  }
+
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .macro-heading {
+    font-family: var(--font-macro);
+    font-size: clamp(3rem, 8vw, 9.5rem);
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    margin: 0;
+
+    .indent {
+      display: block;
+      margin-left: 10%;
+    }
+  }
+
+  .editorial-desc {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    margin-bottom: 2rem;
+    max-width: 80%;
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-red);
+      border-radius: 50%;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .editorial-grid-section {
+    padding: 2rem;
+
+    .grid-container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+
+      .grid-cell {
+        grid-column: span 1 / auto !important;
+        grid-row: span 1 / auto !important;
+        height: 400px !important;
+
+        &.p-macro, &.p-micro {
+          height: auto !important;
+        }
+      }
+    }
+
+    .macro-heading {
+      font-size: 4rem;
+      .indent { margin-left: 0; }
+    }
+  }
+}

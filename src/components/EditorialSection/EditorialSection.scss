@@ -1,0 +1,227 @@
+.editorial-desire-section {
+  width: 100vw;
+  background-color: var(--background);
+  color: var(--foreground);
+  position: relative;
+  overflow: hidden;
+
+  .scrub-text-container {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+
+    .scrub-heading {
+      font-family: var(--font-macro);
+      font-size: clamp(3rem, 6vw, 6rem);
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      text-align: center;
+      max-width: 1400px;
+      
+      .word {
+        display: inline-block;
+        opacity: 0.1;
+        margin-right: 0.2em;
+      }
+
+      .inline-image-pill {
+        display: inline-block;
+        width: 14vw; 
+        height: 0.8em; 
+        border-radius: 200px;
+        background-size: cover;
+        background-position: center;
+        vertical-align: middle;
+        margin: 0 0.3em;
+        filter: grayscale(1) contrast(1.2);
+        box-shadow: inset 0 0 0 2px var(--foreground);
+      }
+    }
+  }
+
+  .horizontal-gallery-wrapper {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #0A0A0A;
+    color: #EAEAEA;
+    position: relative;
+
+    .horizontal-gallery-track {
+      display: flex;
+      height: 100%;
+      width: max-content;
+      align-items: center;
+      padding: 0; 
+      gap: 15vw;
+
+      .gallery-item {
+        position: relative;
+        width: 70vw;
+        height: 70vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-left: 10vw;
+
+        &:first-child {
+          margin-left: 15vw;
+        }
+
+        .image-frame {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          overflow: hidden;
+          background-color: #121212;
+          
+          img {
+            object-fit: cover;
+            filter: contrast(1.1) grayscale(0.2);
+          }
+        }
+
+        .item-meta {
+          position: absolute;
+          bottom: -3rem;
+          left: 0;
+          color: var(--accent-red);
+        }
+      }
+
+      // End cap — transition triggered here at carousel completion
+      .gallery-end-cap {
+        width: 100vw;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+
+        .macro-heading {
+          font-family: var(--font-macro);
+          font-size: clamp(4rem, 10vw, 12rem);
+          line-height: 0.85;
+          text-transform: uppercase;
+          color: #EAEAEA;
+          z-index: 10;
+          pointer-events: none;
+          white-space: nowrap;
+          display: flex;
+          gap: 0; // Absolute seamless fit when x is 0
+          will-change: transform, opacity;
+
+          .split-half {
+            display: inline-block;
+            white-space: nowrap;
+            will-change: transform;
+          }
+        }
+
+        // Image starts small, perfectly square (aspect-ratio: 1) and rotated 12deg
+        .reveal-image-wrapper {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(12deg);
+          width: 25vw;
+          height: 25vw; // Standard aspect ratio to prevent vertical squishing
+          z-index: 5;
+          overflow: hidden;
+          will-change: transform, width, height;
+
+          // Subtle inset editorial border
+          &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            z-index: 2;
+            pointer-events: none;
+          }
+
+          img {
+            object-fit: cover;
+            object-position: center top;
+          }
+        }
+
+        // Editorial text overlay once image expands
+        .collection-overlay-text {
+          position: absolute;
+          bottom: 8vh;
+          left: 5vw;
+          z-index: 20;
+          opacity: 0;
+          pointer-events: none;
+          will-change: opacity, transform;
+
+          .overlay-season {
+            display: block;
+            color: var(--accent-red);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+          }
+
+          .overlay-title {
+            font-family: var(--font-macro);
+            font-size: clamp(3rem, 6vw, 7rem);
+            line-height: 0.85;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            letter-spacing: -0.03em;
+            margin-bottom: 2rem;
+            text-shadow: 0 4px 80px rgba(0, 0, 0, 0.9);
+          }
+
+          .overlay-rule {
+            width: 80px;
+            height: 2px;
+            background-color: var(--accent-red);
+            margin-bottom: 1.5rem;
+          }
+
+          .overlay-sub {
+            color: rgba(234, 234, 234, 0.5);
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .editorial-desire-section {
+    .horizontal-gallery-wrapper {
+      .horizontal-gallery-track {
+        gap: 5vw;
+        padding: 0 5vw;
+
+        .gallery-item {
+          width: 90vw;
+          height: 60vh;
+        }
+
+        .gallery-end-cap {
+          .reveal-image-wrapper {
+            width: 50vw;
+            height: 50vw;
+          }
+        }
+      }
+    }
+  }
+}
