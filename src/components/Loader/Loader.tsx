@@ -10,7 +10,7 @@ const LOADER_IMAGES = [
   '/loader_2.png',
   '/loader_3.png',
   '/loader_4.png',
-  '/loader_5.png',
+  '/editorial_drape_v2.png',
 ];
 
 interface LoaderProps {
@@ -110,7 +110,7 @@ export default function Loader({ onComplete }: LoaderProps) {
           opacity: 1,
           filter: 'blur(0px)',
           scale: 1,
-          x: '25vw',
+          x: '16.5vw',
           xPercent: -50,
           yPercent: -50,
           rotation: -90,

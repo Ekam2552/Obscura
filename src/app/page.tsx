@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero/Hero";
 import EditorialSection from "@/components/EditorialSection/EditorialSection";
 import TelemetryGrid from "@/components/TelemetryGrid/TelemetryGrid";
+import OutroSection from "@/components/OutroSection/OutroSection";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <EditorialSection />
       <TelemetryGrid />
+      <OutroSection />
     </main>
   );
 }

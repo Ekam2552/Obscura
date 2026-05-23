@@ -17,6 +17,8 @@ export default function TelemetryGrid() {
   const look3Ref = useRef<HTMLDivElement>(null);
   const look4Ref = useRef<HTMLDivElement>(null);
   const look5Ref = useRef<HTMLDivElement>(null);
+  const innerWrapperRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -123,6 +125,37 @@ export default function TelemetryGrid() {
         );
       });
 
+      // Zoom-out transition timeline when scrolling past the bottom
+      if (innerWrapperRef.current) {
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "bottom bottom", // Trigger when the bottom of lookbook reaches bottom of viewport
+            end: "+=100%", // Animate for 1 full viewport height scroll depth
+            pin: true, // Pin container
+            scrub: true, // Sync exactly with scroll position to prevent position jumping on fast scroll
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+          onUpdate: function () {
+            const prog = this.progress();
+            const container = containerRef.current;
+            if (container) {
+              if (prog > 0 && prog < 1) {
+                container.classList.add("is-transitioning");
+              } else {
+                container.classList.remove("is-transitioning");
+              }
+            }
+          }
+        })
+        .to(innerWrapperRef.current, {
+          scale: 0, // Shrink wrapper completely
+          rotation: 12, // Rotate by 12 degrees to match COLLECTION animation behavior
+          ease: "power2.inOut",
+        });
+      }
+
     }, containerRef);
 
     return () => ctx.revert();
@@ -130,13 +163,15 @@ export default function TelemetryGrid() {
 
   return (
     <section className="luxury-lookbook-section" ref={containerRef}>
+      <div className="lookbook-inner-wrapper" ref={innerWrapperRef}>
+        <div className="lookbook-content" ref={contentRef}>
       
       {/* Editorial Header Section */}
       <div className="lookbook-intro">
         <span className="mono-meta section-tag reveal-text">THE EDITORIAL LOOKBOOK</span>
         <h2 className="lookbook-title reveal-text">
           A STUDY IN<br />
-          TAILORED VOLUMES
+          TABOO SILHOUETTES
         </h2>
         <div className="lookbook-intro-desc reveal-text">
           <p>
@@ -151,56 +186,56 @@ export default function TelemetryGrid() {
         
         {/* LOOK 1: Asymmetric Left (Tall Vertical Portrait) */}
         <div className="lookbook-item item-left" ref={look1Ref}>
-          <div className="image-container tall-portrait">
+          <div className="image-container tall-portrait overflow-hidden group">
             <Image 
-              src="/editorial_1.png" 
-              alt="Look 01 - The Draped Silhouette" 
+              src="/lookbook_look1_v3.png" 
+              alt="Look 01 - Taboo Structure" 
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
-              style={{ objectFit: 'cover' }}
+              className="luxury-image-filter group-hover:scale-105"
               priority
             />
           </div>
           <div className="item-details">
-            <span className="item-tag mono-meta">LOOK 01 // SHADOW SCULPTURE</span>
-            <h4 className="item-title">THE DRAPED COLUMN</h4>
+            <span className="item-tag mono-meta">LOOK 01 // TABOO STRUCTURE</span>
+            <h4 className="item-title">THE BRUTALIST DRAPE</h4>
             <p className="item-description">
-              Heavy pleated wool crêpe engineered to capture harsh architectural shadows, balancing structural mass 
-              with precise organic falls.
+              An oversized asymmetric drape that interacts with sharp, raw concrete spaces and shadows.
             </p>
           </div>
         </div>
 
         {/* LOOK 2: Asymmetric Right (Slightly Offset Square) */}
         <div className="lookbook-item item-right" ref={look2Ref}>
-          <div className="image-container square-portrait">
+          <div className="image-container square-portrait overflow-hidden group">
             <Image 
-              src="/editorial_2.png" 
-              alt="Look 02 - Architectural Collapse" 
+              src="/lookbook_look2_v3.png" 
+              alt="Look 02 - Sheer Silhouette" 
               fill
               sizes="(max-width: 1024px) 100vw, 35vw"
-              style={{ objectFit: 'cover' }}
+              className="luxury-image-filter group-hover:scale-105"
             />
           </div>
           <div className="item-details">
-            <span className="item-tag mono-meta">LOOK 02 // GEOMETRIC SEAMING</span>
-            <h4 className="item-title">THE CONCRETE SHAPE</h4>
+            <span className="item-tag mono-meta">LOOK 02 // SHEER TENSION</span>
+            <h4 className="item-title">THE SILHOUETTE SHEER</h4>
             <p className="item-description">
-              Asymmetrical tailored jacket crafted in high-density gabardine, reinforcing torso boundaries 
-              through rigid darts and custom clasps.
+              Delicate sheer knit layering that exposes form beneath structured drapes, presenting a subtle and bold skin stance.
             </p>
           </div>
         </div>
 
         {/* LOOK 3: Landscape / Full Span Centered look */}
         <div className="lookbook-item item-center" ref={look3Ref}>
-          <div className="image-container wide-landscape">
+          <div className="image-container wide-landscape overflow-hidden group">
             <Image 
-              src="/editorial_3.png" 
-              alt="Look 03 - Technical Mass" 
+              src="/lookbook_look3_cinematic.png" 
+              alt="Look 03 - Exposed Column" 
               fill
-              sizes="(max-width: 1024px) 100vw, 80vw"
-              style={{ objectFit: 'cover', objectPosition: 'center top' }}
+              sizes="100vw"
+              quality={95}
+              className="luxury-image-filter group-hover:scale-105"
+              priority
             />
           </div>
           <div className="item-meta-grid">
@@ -210,11 +245,11 @@ export default function TelemetryGrid() {
             </div>
             <div className="meta-col">
               <span className="mono-meta label">TEXTILE BLEND</span>
-              <p className="val">DOUBLE-FACED ORGANZA & GARRISON WOOL</p>
+              <p className="val">RAW SILK & BRUTALIST WOOL CREPE</p>
             </div>
             <div className="meta-col">
               <span className="mono-meta label">STRUCTURAL FORM</span>
-              <p className="val">OVERSIZED PANEL INTEGRATION WITH DECONSTRUCTED CUFFS</p>
+              <p className="val">EXPOSED BARE-BACK WITH DRAPED ARCHITECTURAL SILHOUETTE</p>
             </div>
           </div>
         </div>
@@ -223,34 +258,34 @@ export default function TelemetryGrid() {
         <div className="double-column-group">
           
           <div className="lookbook-item item-left-double" ref={look4Ref}>
-            <div className="image-container medium-portrait">
+            <div className="image-container medium-portrait overflow-hidden group">
               <Image 
-                src="/gallery_1.png" 
-                alt="Look 04 - Organic Flow" 
+                src="/lookbook_look4_v3.png" 
+                alt="Look 04 - Sculpted Back" 
                 fill
                 sizes="(max-width: 1024px) 100vw, 30vw"
-                style={{ objectFit: 'cover' }}
+                className="luxury-image-filter group-hover:scale-105"
               />
             </div>
             <div className="item-details">
-              <span className="item-tag mono-meta">LOOK 03 // SILHOUETTE FLUIDITY</span>
-              <h4 className="item-title">THE SHADOW SCULPTOR</h4>
+              <span className="item-tag mono-meta">LOOK 03 // CÉLINE DRAPE</span>
+              <h4 className="item-title">THE SCULPTED BACK</h4>
             </div>
           </div>
 
           <div className="lookbook-item item-right-double" ref={look5Ref}>
-            <div className="image-container medium-portrait">
+            <div className="image-container medium-portrait overflow-hidden group">
               <Image 
-                src="/gallery_2.png" 
-                alt="Look 05 - Tension Drape" 
+                src="/lookbook_look5_v3.png" 
+                alt="Look 05 - Asymmetric Attitude" 
                 fill
                 sizes="(max-width: 1024px) 100vw, 30vw"
-                style={{ objectFit: 'cover' }}
+                className="luxury-image-filter group-hover:scale-105"
               />
             </div>
             <div className="item-details">
-              <span className="item-tag mono-meta">LOOK 04 // ASYMMETRICAL WRAP</span>
-              <h4 className="item-title">THE COLLAPSED COWL</h4>
+              <span className="item-tag mono-meta">LOOK 04 // PROVOCATIVE FORMS</span>
+              <h4 className="item-title">THE ATTITUDE STANCE</h4>
             </div>
           </div>
 
@@ -258,6 +293,8 @@ export default function TelemetryGrid() {
 
       </div>
 
+      </div>
+      </div>
     </section>
   );
 }

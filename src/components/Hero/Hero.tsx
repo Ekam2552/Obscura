@@ -113,30 +113,74 @@ export default function Hero() {
           <div className="hero-left" ref={leftRef}>
             <div className="hero-image-wrapper" ref={imageRef}>
               <Image 
-                src="/loader_5.png" 
-                alt="Avant-garde fashion editorial" 
+                src="/editorial_drape_v2.png" 
+                alt="Avant-garde fashion editorial drape" 
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
           </div>
-
+ 
           <div className="hero-right" ref={rightRef}>
             <div className="hero-text-wrapper">
               <h1 ref={textRef}>OBSCURA</h1>
             </div>
-
+ 
             <div className="hero-editorial-block" ref={tagRef}>
               <div className="hazard-line"></div>
               <div className="manifesto-text">
-                <p>TO IMPRESS</p>
-                <p className="highlight-block">STOP GIVING</p>
-                <p>SINGLE FUCKS</p>
+                <p>A STUDY IN</p>
+                <p className="highlight-block">CONFRONTATIONAL</p>
+                <p>LUXURY FORM</p>
               </div>
               <div className="editorial-meta">
-                <span className="mono-meta">VOL. 01</span>
-                <span className="mono-meta warning-text">[EXPLICIT]</span>
+                <span className="mono-meta">VOL. 01 / COLLECTION</span>
+                <span className="mono-meta warning-text">[EXPLICIT EDITORIAL]</span>
+              </div>
+              <div className="hero-actions" style={{ marginTop: '1.5rem', display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
+                <div className="obscura-shutter-widget">
+                  <div className="shutter-meta">
+                    <div className="shutter-tag-row">
+                      <span className="shutter-label">LENS STAT:</span>
+                      <span className="shutter-value warning-text">ACTIVE</span>
+                    </div>
+                    <div className="shutter-tag-row">
+                      <span className="shutter-label">APERTURE:</span>
+                      <span className="shutter-value font-mono">F/1.2 LTR</span>
+                    </div>
+                    <div className="shutter-action-prompt">
+                      <span>SCROLL DOWN</span>
+                    </div>
+                  </div>
+
+                  <div className="shutter-visual-frame">
+                    <div className="shutter-peek-image">
+                      <Image 
+                        src="/editorial_eye_v2.png" 
+                        alt="Obscura lens peek" 
+                        fill
+                        sizes="120px"
+                        priority
+                      />
+                    </div>
+                    <svg viewBox="0 0 100 100" className="shutter-aperture-svg">
+                      <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2, 2" />
+                      <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" strokeWidth="0.75" />
+                      <circle cx="50" cy="50" r="20" fill="none" stroke="var(--accent-red)" strokeWidth="0.5" strokeDasharray="1, 3" className="inner-target-ring" />
+                      
+                      <line x1="50" y1="2" x2="50" y2="6" stroke="currentColor" strokeWidth="1" />
+                      <line x1="50" y1="94" x2="50" y2="98" stroke="currentColor" strokeWidth="1" />
+                      <line x1="2" y1="50" x2="6" y2="50" stroke="currentColor" strokeWidth="1" />
+                      <line x1="94" y1="50" x2="98" y2="50" stroke="currentColor" strokeWidth="1" />
+
+                      <path d="M 50,6 L 80,20" stroke="currentColor" strokeWidth="0.5" opacity="0.3" className="blade-line" />
+                      <path d="M 94,50 L 80,80" stroke="currentColor" strokeWidth="0.5" opacity="0.3" className="blade-line" />
+                      <path d="M 50,94 L 20,80" stroke="currentColor" strokeWidth="0.5" opacity="0.3" className="blade-line" />
+                      <path d="M 6,50 L 20,20" stroke="currentColor" strokeWidth="0.5" opacity="0.3" className="blade-line" />
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

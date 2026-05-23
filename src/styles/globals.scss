@@ -48,6 +48,19 @@ html, body {
 
 body {
   min-height: 100vh;
+  position: relative;
+  
+  // Luxury Grain Texture overlay across the whole site
+  &::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
 }
 
 // 4. Utility Classes (Anti-Slop)
@@ -83,3 +96,60 @@ body {
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
+
+// 5. Luxury & Editorial Helpers
+.dark-radial-wash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 40% 40%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.luxury-image-filter {
+  filter: contrast(1.05) brightness(0.95);
+  transition: filter 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: filter, transform;
+  
+  &:hover {
+    filter: contrast(1.1) brightness(1.05);
+    transform: scale(1.03);
+  }
+}
+
+.glow-btn {
+  font-family: var(--font-micro);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 1.25rem 2.5rem;
+  background-color: var(--foreground);
+  color: var(--background);
+  border: 1px solid var(--foreground);
+  cursor: pointer;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  
+  &:hover {
+    background-color: transparent;
+    color: var(--foreground);
+  }
+}
+
+.glow-btn-outline {
+  font-family: var(--font-micro);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 1.25rem 2.5rem;
+  background-color: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+  cursor: pointer;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  
+  &:hover {
+    background-color: var(--foreground);
+    color: var(--background);
+  }
+}
+
