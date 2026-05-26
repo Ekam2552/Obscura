@@ -133,6 +133,7 @@ export default function TelemetryGrid() {
             start: "bottom bottom", // Trigger when the bottom of lookbook reaches bottom of viewport
             end: "+=100%", // Animate for 1 full viewport height scroll depth
             pin: true, // Pin container
+            pinSpacing: false, // Allow next section to scroll underneath during pin
             scrub: true, // Sync exactly with scroll position to prevent position jumping on fast scroll
             anticipatePin: 1,
             invalidateOnRefresh: true,

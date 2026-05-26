@@ -1,8 +1,9 @@
 .luxury-lookbook-section {
   width: 100vw;
   min-height: 100vh;
-  background-color: var(--background, #F4F4F0);
+  background-color: transparent;
   position: relative;
+  z-index: 10;
   overflow: hidden;
   padding: 0;
 
@@ -223,6 +224,8 @@
   }
 
   &.is-transitioning {
+    background-color: transparent !important;
+
     .lookbook-inner-wrapper {
       height: 100vh !important;
       position: absolute;
@@ -231,10 +234,20 @@
       right: 0;
       overflow: hidden;
       transform-origin: center center !important;
-
+      
       .lookbook-content {
         transform: translateY(calc(-100% + 100vh - 2 * var(--vertical-padding))) !important;
       }
+    }
+
+    & + .cta-section {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
     }
   }
 }

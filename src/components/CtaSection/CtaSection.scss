@@ -1,0 +1,286 @@
+// CtaSection.scss
+
+.cta-section {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: transparent; // So the lookbook shows behind
+  color: #050505;
+  position: relative;
+  z-index: 20; // In front of the lookbook
+  margin-top: -100vh; // Overlap perfectly with the pin spacer
+  display: flex;
+
+  .cta-content {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+
+    @media (max-width: 1024px) {
+      flex-direction: column;
+    }
+  }
+
+  // --- LEFT PANE: MASSIVE IMAGE ---
+  .cta-visual-pane {
+    width: 45vw;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+
+    @media (max-width: 1024px) {
+      width: 100vw;
+      height: 60vh;
+      position: relative;
+    }
+
+    // No additional styling needed for the image wrapper since ParticleImage 
+    // handles it internally. The canvas will just fill this pane natively.
+  }
+
+  // --- RIGHT PANE: MINIMAL FORM ---
+  .cta-form-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; // Space out the content
+    padding: 6vh 4vw 3vh 4vw;
+    background-color: transparent; // Let the white page bg show
+    height: 100vh;
+
+    @media (max-width: 1024px) {
+      padding: 6vw 4vw;
+    }
+  }
+
+  .cta-heading {
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 800;
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    margin-bottom: 3vh;
+    margin-left: -1vw; // Slight brutalist offset
+  }
+
+  .cta-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2vh;
+    margin-bottom: 2vh;
+    align-items: start;
+    max-width: 800px;
+  }
+
+  .cta-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .cta-description {
+      font-size: clamp(1rem, 1.25vw, 1.25rem);
+      line-height: 1.5;
+      font-weight: 300;
+      opacity: 0.8;
+      max-width: 400px;
+    }
+
+    .cta-contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      opacity: 0.6;
+
+      .hover-link {
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        display: inline-block;
+        width: fit-content;
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          transform: scaleX(0);
+          height: 1px;
+          bottom: -2px;
+          left: 0;
+          background-color: currentColor;
+          transform-origin: bottom right;
+          transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+
+        &:hover::after {
+          transform: scaleX(1);
+          transform-origin: bottom left;
+        }
+      }
+    }
+  }
+
+  .cta-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .input-group {
+      position: relative;
+      width: 100%;
+
+      input, textarea {
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(5, 5, 5, 0.15); // Very subtle default border
+        color: #050505;
+        font-size: 1rem;
+        padding: 0.75rem 0;
+        outline: none;
+        font-family: inherit;
+        resize: none;
+
+        &::placeholder {
+          color: transparent;
+        }
+
+        // Floating label logic
+        &:focus, &:valid {
+          & + label {
+            transform: translateY(-1.5rem);
+            font-size: 0.75rem;
+            opacity: 0.5;
+          }
+        }
+        
+        // Liquid Ink animation trigger
+        &:focus ~ .liquid-border {
+          transform: scaleX(1);
+        }
+      }
+
+      label {
+        position: absolute;
+        left: 0;
+        top: 1.25rem;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+        pointer-events: none;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        text-transform: uppercase;
+        opacity: 0.7;
+      }
+
+      // LIQUID INK BORDER EFFECT
+      .liquid-border {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #050505;
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1);
+        pointer-events: none;
+      }
+    }
+
+    .submit-btn {
+      margin-top: 1rem;
+      background: #050505;
+      color: #F4F4F0;
+      border: none;
+      padding: 1.25rem 3rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      align-self: flex-start;
+      will-change: transform;
+
+      .btn-text {
+        position: relative;
+        z-index: 2;
+        transition: color 0.4s ease;
+      }
+
+      .btn-hover-effect {
+        position: absolute;
+        inset: 0;
+        background-color: var(--accent-red, #FF2A2A);
+        transform: translateY(100%);
+        transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+        z-index: 1;
+      }
+
+      &:hover {
+        .btn-text {
+          color: #050505;
+        }
+        .btn-hover-effect {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+
+  .cta-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid rgba(5, 5, 5, 0.1);
+    padding-top: 1.5rem;
+    margin-top: 0; // Handled by space-between
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      
+      .hover-link {
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          transform: scaleX(0);
+          height: 1px;
+          bottom: -2px;
+          left: 0;
+          background-color: currentColor;
+          transform-origin: bottom right;
+          transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+
+        &:hover::after {
+          transform: scaleX(1);
+          transform-origin: bottom left;
+        }
+      }
+    }
+  }
+}
