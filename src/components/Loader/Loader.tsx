@@ -6,11 +6,11 @@ import gsap from 'gsap';
 import './Loader.scss';
 
 const LOADER_IMAGES = [
-  '/loader_1.png',
-  '/loader_2.png',
-  '/loader_3.png',
-  '/loader_4.png',
-  '/editorial_drape_v2.png',
+  '/loader_1.webp',
+  '/loader_2.webp',
+  '/loader_3.webp',
+  '/loader_4.webp',
+  '/editorial_drape_v2.webp',
 ];
 
 interface LoaderProps {

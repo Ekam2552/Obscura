@@ -126,17 +126,17 @@ export default function EditorialSection() {
           <span className="word">WE</span> <span className="word">ENGINEER</span> <span className="word">CULTURE.</span>
           <br/>
           <span className="word">OBSCURA</span> 
-          <span className="inline-image-pill word" style={{backgroundImage: "url('/editorial_provocative_v2.png')"}}></span>
+          <span className="inline-image-pill word" style={{backgroundImage: "url('/editorial_provocative_v2.webp')"}}></span>
           <span className="word">REDEFINES</span> <span className="word">THE</span>
           <br/>
           <span className="word">PARAMETERS</span> <span className="word">OF</span> <span className="word">LUXURY,</span>
           <br/>
           <span className="word">FORCING</span> <span className="word">A</span> <span className="word">CONFRONTATION</span>
-          <span className="inline-image-pill word" style={{backgroundImage: "url('/editorial_sheer_v2.png')"}}></span>
+          <span className="inline-image-pill word" style={{backgroundImage: "url('/editorial_sheer_v2.webp')"}}></span>
           <br/>
           <span className="word">BETWEEN</span> <span className="word">THE</span> <span className="word">ARCHITECTURAL</span>
           <br/>
-          <span className="inline-image-pill word" style={{backgroundImage: "url('/editorial_sculpt_v2.png')"}}></span>
+          <span className="inline-image-pill word" style={{backgroundImage: "url('/editorial_sculpt_v2.webp')"}}></span>
           <span className="word">AND</span> <span className="word">THE</span> <span className="word">ORGANIC.</span>
         </h2>
       </div>
@@ -152,7 +152,7 @@ export default function EditorialSection() {
           
           <div className="accordion-item">
             <div className="item-bg">
-              <Image src="/editorial_sculpt_v2.png" alt="The sculpt details" fill sizes="(max-width: 768px) 100vw, 33vw" priority />
+              <Image src="/editorial_sculpt_v2.webp" alt="The sculpt details" fill sizes="(max-width: 768px) 100vw, 33vw" />
             </div>
             <div className="item-overlay"></div>
             <div className="item-header">
@@ -168,7 +168,7 @@ export default function EditorialSection() {
 
           <div className="accordion-item">
             <div className="item-bg">
-              <Image src="/editorial_sheer_v2.png" alt="The sheer silhouette" fill sizes="(max-width: 768px) 100vw, 33vw" />
+              <Image src="/editorial_sheer_v2.webp" alt="The sheer silhouette" fill sizes="(max-width: 768px) 100vw, 33vw" />
             </div>
             <div className="item-overlay"></div>
             <div className="item-header">
@@ -184,7 +184,7 @@ export default function EditorialSection() {
 
           <div className="accordion-item">
             <div className="item-bg">
-              <Image src="/editorial_provocative_v2.png" alt="The stance" fill sizes="(max-width: 768px) 100vw, 33vw" />
+              <Image src="/editorial_provocative_v2.webp" alt="The stance" fill sizes="(max-width: 768px) 100vw, 33vw" />
             </div>
             <div className="item-overlay"></div>
             <div className="item-header">
@@ -207,7 +207,7 @@ export default function EditorialSection() {
           {/* Item 1: Style Portrait (tall, top aligned) */}
           <div className="gallery-item style-portrait">
             <div className="image-frame overflow-hidden group">
-              <Image src="/editorial_provocative_v2.png" alt="Look 01 - Taboo Stance" fill sizes="(max-width: 768px) 90vw, 32vw" className="luxury-image-filter group-hover:scale-105" />
+              <Image src="/editorial_provocative_v2.webp" alt="Look 01 - Taboo Stance" fill sizes="(max-width: 768px) 90vw, 32vw" className="luxury-image-filter group-hover:scale-105" />
             </div>
             <div className="item-meta">LOOK 01 // TABOO ATTITUDE</div>
           </div>
@@ -226,7 +226,7 @@ export default function EditorialSection() {
           {/* Item 2: Style Landscape (wide, bottom aligned) */}
           <div className="gallery-item style-landscape">
             <div className="image-frame overflow-hidden group">
-              <Image src="/editorial_sheer_v2.png" alt="Look 02 - Sheer Silhouette" fill sizes="(max-width: 768px) 90vw, 52vw" className="luxury-image-filter group-hover:scale-105" />
+              <Image src="/editorial_sheer_v2.webp" alt="Look 02 - Sheer Silhouette" fill sizes="(max-width: 768px) 90vw, 52vw" className="luxury-image-filter group-hover:scale-105" />
             </div>
             <div className="item-meta">LOOK 02 // SHEER TENSION</div>
           </div>
@@ -245,7 +245,7 @@ export default function EditorialSection() {
           {/* Item 3: Style Square (centered, medium-large) */}
           <div className="gallery-item style-square">
             <div className="image-frame overflow-hidden group">
-              <Image src="/editorial_sculpt_v2.png" alt="Look 03 - Sculpted Back" fill sizes="(max-width: 768px) 90vw, 42vw" className="luxury-image-filter group-hover:scale-105" />
+              <Image src="/editorial_sculpt_v2.webp" alt="Look 03 - Sculpted Back" fill sizes="(max-width: 768px) 90vw, 42vw" className="luxury-image-filter group-hover:scale-105" />
             </div>
             <div className="item-meta">LOOK 03 // SCULPTED FORM</div>
           </div>
@@ -256,12 +256,11 @@ export default function EditorialSection() {
             {/* Aspect-ratio reveal image: starts small + rotated, scales to full screen */}
             <div className="reveal-image-wrapper" ref={revealImgWrapperRef}>
               <Image
-                src="/lookbook_reveal_v3.png"
+                src="/lookbook_reveal_v3.webp"
                 alt="Obscura Reveal Drape Masterpiece"
                 fill
                 sizes="(max-width: 768px) 50vw, 25vw"
                 style={{ objectFit: 'cover', objectPosition: 'center top' }}
-                priority
               />
             </div>
 

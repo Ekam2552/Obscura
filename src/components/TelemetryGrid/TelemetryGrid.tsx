@@ -189,12 +189,11 @@ export default function TelemetryGrid() {
         <div className="lookbook-item item-left" ref={look1Ref}>
           <div className="image-container tall-portrait overflow-hidden group">
             <Image 
-              src="/lookbook_look1_v3.png" 
+              src="/lookbook_look1_v3.webp" 
               alt="Look 01 - Taboo Structure" 
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
               className="luxury-image-filter group-hover:scale-105"
-              priority
             />
           </div>
           <div className="item-details">
@@ -210,7 +209,7 @@ export default function TelemetryGrid() {
         <div className="lookbook-item item-right" ref={look2Ref}>
           <div className="image-container square-portrait overflow-hidden group">
             <Image 
-              src="/lookbook_look2_v3.png" 
+              src="/lookbook_look2_v3.webp" 
               alt="Look 02 - Sheer Silhouette" 
               fill
               sizes="(max-width: 1024px) 100vw, 35vw"
@@ -230,13 +229,12 @@ export default function TelemetryGrid() {
         <div className="lookbook-item item-center" ref={look3Ref}>
           <div className="image-container wide-landscape overflow-hidden group">
             <Image 
-              src="/lookbook_look3_cinematic.png" 
+              src="/lookbook_look3_cinematic.webp" 
               alt="Look 03 - Exposed Column" 
               fill
               sizes="100vw"
               quality={95}
               className="luxury-image-filter group-hover:scale-105"
-              priority
             />
           </div>
           <div className="item-meta-grid">
@@ -261,7 +259,7 @@ export default function TelemetryGrid() {
           <div className="lookbook-item item-left-double" ref={look4Ref}>
             <div className="image-container medium-portrait overflow-hidden group">
               <Image 
-                src="/lookbook_look4_v3.png" 
+                src="/lookbook_look4_v3.webp" 
                 alt="Look 04 - Sculpted Back" 
                 fill
                 sizes="(max-width: 1024px) 100vw, 30vw"
@@ -277,7 +275,7 @@ export default function TelemetryGrid() {
           <div className="lookbook-item item-right-double" ref={look5Ref}>
             <div className="image-container medium-portrait overflow-hidden group">
               <Image 
-                src="/lookbook_look5_v3.png" 
+                src="/lookbook_look5_v3.webp" 
                 alt="Look 05 - Asymmetric Attitude" 
                 fill
                 sizes="(max-width: 1024px) 100vw, 30vw"

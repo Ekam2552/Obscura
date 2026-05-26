@@ -11,7 +11,7 @@ const EditorialGrid = forwardRef<HTMLDivElement>((_, ref) => {
         <div className="grid-cell col-span-5 row-span-2 bleed-top-left">
           <div className="cell-inner image-reveal overflow-hidden group">
             <Image 
-              src="/editorial_sheer_v2.png" 
+              src="/editorial_sheer_v2.webp" 
               alt="High-fashion sheer black drape" 
               fill 
               sizes="(max-width: 1024px) 100vw, 40vw"
@@ -30,7 +30,7 @@ const EditorialGrid = forwardRef<HTMLDivElement>((_, ref) => {
             BRUTAL 
             <span 
               className="inline-image-pill" 
-              style={{ backgroundImage: "url('/editorial_provocative_v2.png')" }}
+              style={{ backgroundImage: "url('/editorial_provocative_v2.webp')" }}
             ></span>
             <span className="indent">SILHOUETTE</span>
           </h2>
@@ -51,7 +51,7 @@ const EditorialGrid = forwardRef<HTMLDivElement>((_, ref) => {
         <div className="grid-cell col-span-3 bleed-bottom-right">
           <div className="cell-inner image-reveal overflow-hidden group">
             <Image 
-              src="/editorial_sculpt_v2.png" 
+              src="/editorial_sculpt_v2.webp" 
               alt="Céline shoulder drape texture detail" 
               fill 
               sizes="(max-width: 1024px) 100vw, 25vw"

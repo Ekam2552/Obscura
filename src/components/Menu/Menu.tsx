@@ -6,10 +6,10 @@ import gsap from 'gsap';
 import './Menu.scss';
 
 const MENU_ITEMS = [
-  { label: 'INDEX', image: '/menu_index_final.png' },
-  { label: 'ARCHIVE', image: '/menu_archive_final.png' },
-  { label: 'STUDIO', image: '/menu_studio_final.png' },
-  { label: 'CONTACT', image: '/menu_contact_final.png' }
+  { label: 'INDEX', image: '/menu_index_final.webp' },
+  { label: 'ARCHIVE', image: '/menu_archive_final.webp' },
+  { label: 'STUDIO', image: '/menu_studio_final.webp' },
+  { label: 'CONTACT', image: '/menu_contact_final.webp' }
 ];
 
 interface MenuProps {

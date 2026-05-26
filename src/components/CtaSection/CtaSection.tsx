@@ -23,10 +23,10 @@ export default function CtaSection() {
 
   const [carouselIndex, setCarouselIndex] = useState(0);
   const carouselImages = [
-    "/cta_editorial_model_1779708923523.png",
-    "/cta_carousel_1.png",
-    "/cta_carousel_2.png",
-    "/cta_carousel_4.png",
+    "/cta_editorial_model_1779708923523.webp",
+    "/cta_carousel_1.webp",
+    "/cta_carousel_2.webp",
+    "/cta_carousel_4.webp",
   ];
 
   // Cycling carousel interval
@@ -74,7 +74,7 @@ export default function CtaSection() {
       // Zoom out entrance animation perfectly synced with lookbook shrinking
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: ".luxury-lookbook-section",
+          trigger: document.querySelector(".luxury-lookbook-section") || undefined,
           start: "bottom bottom",
           end: "+=100%",
           pin: containerRef.current,

@@ -113,7 +113,7 @@ export default function Hero() {
           <div className="hero-left" ref={leftRef}>
             <div className="hero-image-wrapper" ref={imageRef}>
               <Image 
-                src="/editorial_drape_v2.png" 
+                src="/editorial_drape_v2.webp" 
                 alt="Avant-garde fashion editorial drape" 
                 fill
                 priority
@@ -157,7 +157,7 @@ export default function Hero() {
                   <div className="shutter-visual-frame">
                     <div className="shutter-peek-image">
                       <Image 
-                        src="/editorial_eye_v2.png" 
+                        src="/editorial_eye_v2.webp" 
                         alt="Obscura lens peek" 
                         fill
                         sizes="120px"

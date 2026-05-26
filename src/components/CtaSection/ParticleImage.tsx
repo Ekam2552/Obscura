@@ -96,7 +96,7 @@ export default function ParticleImage({ images, activeIndex, alt }: ParticleImag
   useEffect(() => {
     imageObjects.current = images.map(src => {
       const img = new Image();
-      img.src = src;
+      img.src = `/_next/image?url=${encodeURIComponent(src)}&w=640&q=75`;
       return img;
     });
   }, [images]);
