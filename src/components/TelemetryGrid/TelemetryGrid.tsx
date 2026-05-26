@@ -198,7 +198,7 @@ export default function TelemetryGrid() {
           </div>
           <div className="item-details">
             <span className="item-tag mono-meta">LOOK 01 // TABOO STRUCTURE</span>
-            <h4 className="item-title">THE BRUTALIST DRAPE</h4>
+            <h3 className="item-title">THE BRUTALIST DRAPE</h3>
             <p className="item-description">
               An oversized asymmetric drape that interacts with sharp, raw concrete spaces and shadows.
             </p>
@@ -218,7 +218,7 @@ export default function TelemetryGrid() {
           </div>
           <div className="item-details">
             <span className="item-tag mono-meta">LOOK 02 // SHEER TENSION</span>
-            <h4 className="item-title">THE SILHOUETTE SHEER</h4>
+            <h3 className="item-title">THE SILHOUETTE SHEER</h3>
             <p className="item-description">
               Delicate sheer knit layering that exposes form beneath structured drapes, presenting a subtle and bold skin stance.
             </p>
@@ -268,7 +268,7 @@ export default function TelemetryGrid() {
             </div>
             <div className="item-details">
               <span className="item-tag mono-meta">LOOK 03 // CÉLINE DRAPE</span>
-              <h4 className="item-title">THE SCULPTED BACK</h4>
+              <h3 className="item-title">THE SCULPTED BACK</h3>
             </div>
           </div>
 
@@ -284,7 +284,7 @@ export default function TelemetryGrid() {
             </div>
             <div className="item-details">
               <span className="item-tag mono-meta">LOOK 04 // PROVOCATIVE FORMS</span>
-              <h4 className="item-title">THE ATTITUDE STANCE</h4>
+              <h3 className="item-title">THE ATTITUDE STANCE</h3>
             </div>
           </div>
 

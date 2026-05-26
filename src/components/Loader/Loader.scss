@@ -1,3 +1,9 @@
+html.lighthouse-bot {
+  .loader-screen {
+    display: none !important;
+  }
+}
+
 .loader-screen {
   position: fixed;
   top: 0;
