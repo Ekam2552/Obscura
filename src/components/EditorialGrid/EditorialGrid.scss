@@ -40,14 +40,14 @@
         margin-left: calc(-1 * var(--section-padding));
         height: calc(100% + var(--section-padding));
         width: calc(100% + var(--section-padding));
-        z-index: 2; // Keep on top to ensure correct bleed visuals
+        z-index: 2;
       }
 
       &.bleed-bottom-right {
         width: calc(100% + var(--section-padding));
         height: calc(100% + var(--section-padding) + 4rem);
         margin-bottom: calc(-1 * (var(--section-padding) + 4rem));
-        z-index: 2; // Ensure overlap over borders and backgrounds
+        z-index: 2;
 
         @media (max-width: 1024px) {
           height: calc(100% + var(--section-padding) + 2rem);
@@ -178,14 +178,18 @@
   }
 }
 
+// ========================================
+// TABLET & MOBILE: Single-column stacked grid
+// ========================================
 @media (max-width: 1024px) {
   .editorial-grid-section {
     --section-padding: 2rem;
     padding: var(--section-padding);
+    overflow: hidden;
 
     .grid-container {
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 1.5rem;
 
       .grid-cell {
         grid-column: span 1 / auto !important;
@@ -199,22 +203,134 @@
           inset: 0;
         }
 
-        &.p-macro, &.p-micro {
+        // Text cells don't need forced height, use edge-to-edge alignment and nice brutalist divider lines
+        &.p-macro {
           height: auto !important;
           justify-content: center !important;
-          padding: 3rem 1.5rem !important;
+          padding: 2.5rem 0 !important;
+          background-color: transparent !important;
+        }
+
+        &.p-micro, &.editorial-desc-cell {
+          height: auto !important;
+          justify-content: flex-start !important;
+          align-items: flex-start;
+          padding: 2.5rem 0 !important;
+          background-color: transparent !important;
+
+          .editorial-desc {
+            margin-bottom: 1.5rem;
+            width: 100%;
+          }
+        }
+
+        // Bleed left, right, and top instead of having padding on mobile/tablet
+        &.bleed-top-left {
+          margin-top: calc(-1 * var(--section-padding));
+          margin-left: calc(-1 * var(--section-padding));
+          margin-right: calc(-1 * var(--section-padding));
+          width: calc(100% + 2 * var(--section-padding));
+          height: calc(450px + var(--section-padding)) !important;
+        }
+
+        &.bleed-bottom-right {
+          margin-left: calc(-1 * var(--section-padding));
+          margin-right: calc(-1 * var(--section-padding));
+          width: calc(100% + 2 * var(--section-padding));
+          height: 450px !important;
+          margin-bottom: 0;
         }
       }
     }
 
     .macro-heading {
-      font-size: 3.5rem;
-      .indent { margin-left: 0; }
+      font-size: clamp(2.8rem, 8vw, 4.5rem);
+      line-height: 0.95;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
       
+      .indent {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-top: 0.5rem;
+        margin-left: 0;
+      }
+
       .inline-image-pill {
-        width: 80px;
-        height: 40px;
+        width: clamp(80px, 12vw, 110px);
+        height: clamp(40px, 6vw, 55px);
+        margin: 0 0.25em;
       }
     }
+  }
+}
+
+// ========================================
+// MOBILE-SPECIFIC: Further refinements for small screens
+// ========================================
+@media (max-width: 768px) {
+  .editorial-grid-section {
+    --section-padding: 1.25rem;
+
+    .grid-container {
+      gap: 1.25rem;
+
+      .grid-cell {
+        height: 320px !important;
+        padding: 1.5rem !important;
+
+        &.p-macro {
+          height: auto !important;
+          padding: 2rem 0 !important;
+        }
+
+        &.p-micro, &.editorial-desc-cell {
+          height: auto !important;
+          padding: 2rem 0 !important;
+        }
+
+        &.bleed-top-left {
+          margin-top: calc(-1 * var(--section-padding));
+          margin-left: calc(-1 * var(--section-padding));
+          margin-right: calc(-1 * var(--section-padding));
+          width: calc(100% + 2 * var(--section-padding));
+          height: calc(320px + var(--section-padding)) !important;
+        }
+
+        &.bleed-bottom-right {
+          height: 320px !important;
+          margin-left: calc(-1 * var(--section-padding));
+          margin-right: calc(-1 * var(--section-padding));
+          width: calc(100% + 2 * var(--section-padding));
+        }
+      }
+    }
+
+    .macro-heading {
+      font-size: clamp(2.4rem, 9.5vw, 3.8rem);
+
+      .inline-image-pill {
+        width: clamp(65px, 14vw, 85px);
+        height: clamp(32px, 7vw, 42px);
+        margin: 0 0.2em;
+      }
+    }
+
+    .editorial-desc {
+      font-size: 1.15rem;
+      line-height: 1.4;
+    }
+  }
+}
+
+// Touch device hover overrides
+@media (hover: none) {
+  .editorial-grid-section .grid-container .grid-cell:hover .cell-inner img {
+    transform: none;
+  }
+  .editorial-grid-section .macro-heading .inline-image-pill:hover {
+    transform: none;
   }
 }

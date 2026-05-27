@@ -69,7 +69,8 @@
     overflow: hidden;
 
     .hero-text-wrapper {
-      position: relative;
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
 
@@ -265,28 +266,140 @@
   }
 }
 
-@media (max-width: 1024px) {
+// ========================================
+// MOBILE: Magazine Cover Overlay Layout
+// Matches Loader end state: full-bleed image + centered horizontal OBSCURA
+// ========================================
+@media (max-width: 768px) {
   .hero-section {
-    flex-direction: column;
+    .hero-content {
+      position: relative;
+    }
 
     .hero-left {
-      flex: 0 0 60%;
+      flex: 0 0 100%;
       width: 100%;
     }
 
     .hero-right {
-      flex: 0 0 40%;
+      flex: none;
+      position: absolute;
+      inset: 0;
       width: 100%;
+      height: 100%;
+      background-color: transparent;
+      z-index: 15;
+      // Gradient for text legibility over image
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 30%,
+        rgba(5, 5, 5, 0.3) 60%,
+        rgba(5, 5, 5, 0.7) 100%
+      );
+
+      .hero-text-wrapper {
+        h1 {
+          // Horizontal, centered — matches Loader end state
+          transform: translate(-50%, -50%) rotate(0deg);
+          left: 50%;
+          font-size: clamp(3.5rem, 14vw, 7rem);
+          color: #F4F4F0; // White text over dark gradient
+          text-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
+        }
+      }
+
+      .hero-editorial-block {
+        bottom: 2rem;
+        right: auto;
+        left: 1.5rem;
+        text-align: left;
+        align-items: flex-start;
+        max-width: calc(100% - 3rem);
+
+        .hazard-line {
+          width: 60px;
+          align-self: flex-start;
+        }
+
+        .manifesto-text p {
+          font-size: 1.1rem;
+          color: #F4F4F0;
+        }
+
+        .manifesto-text .highlight-block {
+          background-color: #F4F4F0;
+          color: #050505;
+        }
+
+        .editorial-meta {
+          gap: 0.75rem;
+          flex-wrap: wrap;
+
+          .mono-meta {
+            font-size: 9px;
+            color: rgba(244, 244, 240, 0.7);
+          }
+
+          .warning-text {
+            color: var(--accent-red);
+          }
+        }
+
+        // Hide shutter widget on mobile — too complex for small screens
+        .obscura-shutter-widget {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-section {
+    .hero-left {
+      flex: 0 0 50%;
+    }
+
+    .hero-right {
+      flex: 0 0 50%;
       padding: 2rem;
 
       .hero-text-wrapper h1 {
-        transform: rotate(0);
-        font-size: clamp(4rem, 12vw, 8rem);
+        font-size: clamp(4rem, 10vw, 8rem);
       }
 
       .hero-editorial-block {
         bottom: 2rem;
         right: 2rem;
+        max-width: 260px;
+
+        .manifesto-text p {
+          font-size: 1.2rem;
+        }
+
+        // Smaller shutter widget on tablet
+        .obscura-shutter-widget {
+          .shutter-visual-frame {
+            width: 80px;
+            height: 80px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Disable hover effects on touch devices
+@media (hover: none) {
+  .hero-section {
+    .hero-left .hero-image-wrapper:hover {
+      filter: contrast(1.05);
+    }
+
+    .hero-right .hero-editorial-block .obscura-shutter-widget {
+      &:hover {
+        transform: none;
       }
     }
   }

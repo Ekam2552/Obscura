@@ -432,47 +432,151 @@
   }
 }
 
-@media (max-width: 768px) {
+// ========================================
+// TABLET: ≤ 1024px
+// ========================================
+@media (max-width: 1024px) {
   .editorial-desire-section {
+    .scrub-text-container {
+      min-height: 60vh;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+
+      .scrub-heading {
+        font-size: clamp(2rem, 5vw, 4rem);
+
+        .inline-image-pill {
+          width: 20vw;
+        }
+      }
+    }
+
     .accordion-section {
-      padding: 4vh 0 0;
-      
+      padding: 6vh 0 0;
+
       .section-intro {
         padding-left: 2rem;
         padding-right: 2rem;
       }
-      
+
       .accordion-container {
         flex-direction: column;
         height: auto;
-        
+
         .accordion-item {
-          height: 250px;
+          height: 220px;
           flex: none;
           width: 100%;
-          
-          &:hover {
-            height: 400px;
-            
-            .item-header .item-title-vertical {
-              opacity: 0;
-            }
-          }
-          
-          .item-header {
-            top: 1.5rem;
-            left: 1.5rem;
-            
-            .item-title-vertical {
-              writing-mode: horizontal-tb;
-              margin-top: 0.5rem;
-            }
-          }
-          
+
+          // Content is hidden by default on mobile/tablet until active (tapped)
           .item-content {
+            opacity: 0;
+            transform: translateY(15px);
             bottom: 1.5rem;
             left: 1.5rem;
             right: 1.5rem;
+            width: auto;
+            min-width: 0;
+            pointer-events: none;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+          }
+
+          .item-header {
+            top: 1.5rem;
+            left: 1.5rem;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+
+            .item-title-vertical {
+              writing-mode: horizontal-tb;
+              margin-top: 0.5rem;
+              font-size: clamp(1.2rem, 3vw, 1.5rem);
+              letter-spacing: 0.05em;
+              opacity: 0.95;
+            }
+          }
+
+          .item-bg img {
+            filter: brightness(0.5);
+            transition: filter 0.6s ease, transform 0.6s ease;
+          }
+
+          // Active tapped state: show content, hide vertical header title, darken background
+          &.is-active {
+            .item-content {
+              opacity: 1;
+              transform: translateY(0);
+              pointer-events: auto;
+            }
+
+            .item-header {
+              opacity: 0;
+              transform: translateY(-15px);
+            }
+
+            .item-bg img {
+              filter: brightness(0.25) scale(1.02);
+            }
+          }
+        }
+      }
+    }
+
+    .horizontal-gallery-wrapper {
+      .horizontal-gallery-track {
+        .gallery-end-cap {
+          .macro-heading {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+          }
+        }
+      }
+    }
+  }
+}
+
+// ========================================
+// MOBILE: ≤ 768px
+// ========================================
+@media (max-width: 768px) {
+  .editorial-desire-section {
+    .scrub-text-container {
+      min-height: 50vh;
+
+      .scrub-heading {
+        font-size: clamp(1.6rem, 7vw, 2.5rem);
+
+        .inline-image-pill {
+          width: 25vw;
+          height: 0.7em;
+        }
+      }
+    }
+
+    .accordion-section {
+      padding: 4vh 0 0;
+      
+      .section-intro {
+        margin-bottom: 2rem;
+
+        .section-title {
+          font-size: clamp(2rem, 8vw, 3rem);
+        }
+      }
+      
+      .accordion-container {
+        .accordion-item {
+          height: 200px;
+          
+          .item-content {
+            .item-title {
+              font-size: 1.2rem;
+            }
+
+            .item-desc {
+              font-size: 0.85rem;
+              max-width: 100%;
+            }
           }
         }
       }
@@ -481,7 +585,7 @@
     .horizontal-gallery-wrapper {
       .horizontal-gallery-track {
         gap: 8vw;
-        padding: 0 5vw;
+        padding: 0 0 0 5vw;
 
         .gallery-item {
           &.style-portrait, &.style-landscape, &.style-square {
@@ -523,10 +627,83 @@
         }
 
         .gallery-end-cap {
+          .macro-heading {
+            font-size: clamp(2.2rem, 10vw, 3.5rem);
+          }
+
           .reveal-image-wrapper {
             width: 50vw;
             height: 50vw;
           }
+
+          .collection-overlay-text {
+            bottom: 4vh;
+            left: 1.5rem;
+            
+            .overlay-title {
+              font-size: clamp(2rem, 10vw, 4rem);
+              margin-bottom: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// ========================================
+// Touch device hover overrides
+// ========================================
+@media (hover: none) {
+  .editorial-desire-section {
+    .scrub-text-container .scrub-heading .inline-image-pill:hover {
+      transform: none;
+    }
+
+    // Disable hover expansion / stickiness on touch screens, let active class control state
+    .accordion-section .accordion-container .accordion-item {
+      &:hover {
+        flex: none;
+
+        .item-content {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+
+        .item-header {
+          opacity: 1;
+          transform: translateY(0);
+
+          .item-title-vertical {
+            opacity: 0.95;
+            transform: translateY(0);
+          }
+        }
+
+        .item-bg img {
+          filter: brightness(0.5);
+          transform: none;
+        }
+      }
+
+      &.is-active:hover {
+        .item-content {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .item-header {
+          opacity: 0;
+          transform: translateY(-15px);
+
+          .item-title-vertical {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+        }
+
+        .item-bg img {
+          filter: brightness(0.25) scale(1.02);
         }
       }
     }

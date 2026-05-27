@@ -62,6 +62,11 @@ export default function Menu({ isOpen }: MenuProps) {
     }
   }, [isOpen]); // Removed activeImage dependency
 
+  // Touch-compatible image reveal: tap shows image, tap again or tap another hides it
+  const handleItemInteraction = (index: number) => {
+    setActiveImage((prev) => (prev === index ? null : index));
+  };
+
   return (
     <div className="menu-overlay" ref={menuRef}>
       
@@ -75,7 +80,7 @@ export default function Menu({ isOpen }: MenuProps) {
               src={item.image} 
               alt={item.label} 
               fill 
-              sizes="60vw"
+              sizes="(max-width: 768px) 100vw, 60vw"
             />
           </div>
         ))}
@@ -89,6 +94,7 @@ export default function Menu({ isOpen }: MenuProps) {
             ref={el => { itemsRef.current[index] = el; }}
             onMouseEnter={() => setActiveImage(index)}
             onMouseLeave={() => setActiveImage(null)}
+            onTouchStart={() => handleItemInteraction(index)}
           >
             {item.label}
           </div>

@@ -17,10 +17,6 @@
     height: 100vh;
     display: flex;
     flex-direction: row;
-
-    @media (max-width: 1024px) {
-      flex-direction: column;
-    }
   }
 
   // --- LEFT PANE: MASSIVE IMAGE ---
@@ -30,15 +26,6 @@
     position: sticky;
     top: 0;
     overflow: hidden;
-
-    @media (max-width: 1024px) {
-      width: 100vw;
-      height: 60vh;
-      position: relative;
-    }
-
-    // No additional styling needed for the image wrapper since ParticleImage 
-    // handles it internally. The canvas will just fill this pane natively.
   }
 
   // --- RIGHT PANE: MINIMAL FORM ---
@@ -50,10 +37,6 @@
     padding: 6vh 4vw 3vh 4vw;
     background-color: transparent; // Let the white page bg show
     height: 100vh;
-
-    @media (max-width: 1024px) {
-      padding: 6vw 4vw;
-    }
   }
 
   .cta-heading {
@@ -138,13 +121,15 @@
         width: 100%;
         background: transparent;
         border: none;
-        border-bottom: 1px solid rgba(5, 5, 5, 0.15); // Very subtle default border
+        border-bottom: 1px solid rgba(5, 5, 5, 0.15);
         color: #050505;
         font-size: 1rem;
         padding: 0.75rem 0;
         outline: none;
         font-family: inherit;
         resize: none;
+        // Prevent iOS zoom on focus
+        font-size: 16px;
 
         &::placeholder {
           color: transparent;
@@ -209,6 +194,10 @@
       border-radius: 2px;
       align-self: flex-start;
       will-change: transform;
+      min-height: 48px; // Touch accessibility minimum
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
 
       .btn-text {
         position: relative;
@@ -242,17 +231,11 @@
     align-items: flex-end;
     border-top: 1px solid rgba(5, 5, 5, 0.1);
     padding-top: 1.5rem;
-    margin-top: 0; // Handled by space-between
+    margin-top: 0;
     font-family: 'Space Mono', monospace;
     font-size: 0.75rem;
     letter-spacing: 0.05em;
     opacity: 0.6;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-      gap: 1rem;
-      align-items: flex-start;
-    }
 
     .footer-links {
       display: flex;
@@ -282,5 +265,104 @@
         }
       }
     }
+  }
+}
+
+// ========================================
+// TABLET: ≤ 1024px — Stack panes vertically
+// ========================================
+@media (max-width: 1024px) {
+  .cta-section {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+
+    .cta-content {
+      flex-direction: column;
+      height: auto;
+      min-height: 100vh;
+    }
+
+    .cta-visual-pane {
+      width: 100vw;
+      height: 50vh;
+      position: relative;
+      top: auto;
+    }
+
+    .cta-form-pane {
+      width: 100%;
+      height: auto;
+      min-height: 50vh;
+      padding: 8vw 6vw;
+    }
+
+    .cta-heading {
+      margin-left: 0;
+      margin-bottom: 4vh;
+    }
+  }
+}
+
+// ========================================
+// MOBILE: ≤ 768px — Compact form
+// ========================================
+@media (max-width: 768px) {
+  .cta-section {
+    .cta-visual-pane {
+      height: 40vh;
+    }
+
+    .cta-form-pane {
+      padding: 10vw 5vw;
+    }
+
+    .cta-heading {
+      font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+
+    .cta-info {
+      gap: 1.5rem;
+
+      .cta-description {
+        font-size: 1rem;
+        max-width: 100%;
+      }
+    }
+
+    .cta-form .submit-btn {
+      align-self: stretch;
+      width: 100%;
+      text-align: center;
+      padding: 1.25rem 2rem;
+    }
+
+    .cta-footer {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+  }
+}
+
+// ========================================
+// Touch device hover overrides
+// ========================================
+@media (hover: none) {
+  .cta-section .cta-form .submit-btn:hover {
+    .btn-text {
+      color: #F4F4F0;
+    }
+    .btn-hover-effect {
+      transform: translateY(100%);
+    }
+  }
+
+  .cta-section .cta-info .cta-contact-details .hover-link:hover::after {
+    transform: scaleX(0);
+  }
+
+  .cta-section .cta-footer .footer-links .hover-link:hover::after {
+    transform: scaleX(0);
   }
 }

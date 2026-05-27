@@ -83,11 +83,6 @@
               height: 100% !important;
               transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
               will-change: transform;
-
-              &:hover {
-                transform: none !important;
-                filter: contrast(1.05) brightness(0.95) !important;
-              }
             }
 
             &.tall-portrait {
@@ -104,14 +99,6 @@
               margin-left: calc(-50vw + 50%);
               height: clamp(500px, 65vh, 750px);
               aspect-ratio: auto;
-
-              @media (max-width: 1024px) {
-                width: 100%;
-                max-width: 100%;
-                margin-left: 0;
-                height: auto;
-                aspect-ratio: 16 / 9;
-              }
             }
 
             &.medium-portrait {
@@ -192,11 +179,10 @@
             }
           }
 
-          // Hover physics disabled for editorial lookbook
+          // Hover physics
           &:hover {
             .image-container img {
-              transform: none !important;
-              filter: contrast(1.05) brightness(0.95) !important;
+              transform: scale(1.04);
             }
           }
         }
@@ -259,7 +245,9 @@
   text-transform: uppercase;
 }
 
-// Responsive layout scaling
+// ========================================
+// TABLET: ≤ 1024px — Single column stacked lookbook
+// ========================================
 @media (max-width: 1024px) {
   .luxury-lookbook-section {
     padding: 0;
@@ -277,18 +265,27 @@
 
         .lookbook-grid {
           grid-template-columns: 1fr;
-          row-gap: 12vh;
+          row-gap: 10vh;
 
           .lookbook-item {
             grid-column: 1 / -1 !important;
             margin-top: 0 !important;
 
             .image-container {
+              margin-left: -5vw;
+              margin-right: -5vw;
+              width: calc(100% + 10vw);
+              max-width: none !important;
 
               &.tall-portrait,
               &.square-portrait,
               &.medium-portrait {
                 aspect-ratio: 4 / 5;
+              }
+
+              &.wide-landscape {
+                aspect-ratio: 16 / 9;
+                height: auto;
               }
             }
 
@@ -310,7 +307,7 @@
             grid-column: 1 / -1;
             display: flex;
             flex-direction: column;
-            gap: 12vh;
+            gap: 10vh;
 
             .lookbook-item {
               grid-column: 1 / -1 !important;
@@ -320,5 +317,90 @@
         }
       }
     }
+  }
+}
+
+// ========================================
+// MOBILE: ≤ 768px — Tighter spacing, smaller type
+// ========================================
+@media (max-width: 768px) {
+  .luxury-lookbook-section {
+    .lookbook-inner-wrapper {
+      padding: 8vh 4vw;
+      --vertical-padding: 8vh;
+
+      .lookbook-content {
+        .lookbook-intro {
+          margin-bottom: 6vh;
+          gap: 1rem;
+
+          .lookbook-title {
+            font-size: clamp(2.2rem, 10vw, 3.5rem);
+          }
+
+          .lookbook-intro-desc p {
+            font-size: 1rem;
+          }
+        }
+
+        .lookbook-grid {
+          row-gap: 6vh;
+
+          .lookbook-item {
+            .image-container {
+              margin-left: -4vw;
+              margin-right: -4vw;
+              width: calc(100% + 8vw);
+              max-width: none !important;
+
+              &.tall-portrait,
+              &.square-portrait,
+              &.medium-portrait {
+                aspect-ratio: 4 / 5;
+              }
+
+              &.wide-landscape {
+                aspect-ratio: 16 / 9;
+                height: auto;
+              }
+            }
+
+            .item-details {
+              margin-top: 1.25rem;
+              gap: 0.5rem;
+
+              .item-title {
+                font-size: clamp(1.3rem, 5vw, 1.8rem);
+              }
+
+              .item-description {
+                font-size: 0.9rem;
+              }
+            }
+
+            &.item-center {
+              .item-meta-grid {
+                gap: 1rem;
+                padding-top: 1.25rem;
+                margin-top: 1.25rem;
+              }
+            }
+          }
+
+          .double-column-group {
+            gap: 6vh;
+          }
+        }
+      }
+    }
+  }
+}
+
+// ========================================
+// Touch devices hover overrides
+// ========================================
+@media (hover: none) {
+  .luxury-lookbook-section .lookbook-inner-wrapper .lookbook-content .lookbook-grid .lookbook-item:hover .image-container img {
+    transform: none !important;
   }
 }

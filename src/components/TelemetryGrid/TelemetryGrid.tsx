@@ -24,9 +24,12 @@ export default function TelemetryGrid() {
     const container = containerRef.current;
     if (!container) return;
 
+    const isMobile = window.innerWidth <= 768;
+
     const ctx = gsap.context(() => {
       // Parallax drifting for looks to evoke pure Kinfolk/Celine asymmetry
-      if (look1Ref.current) {
+      // Disabled or heavily reduced on mobile to prevent touch scroll jank
+      if (look1Ref.current && !isMobile) {
         gsap.fromTo(look1Ref.current,
           { y: 40 },
           {
@@ -42,7 +45,7 @@ export default function TelemetryGrid() {
         );
       }
 
-      if (look2Ref.current) {
+      if (look2Ref.current && !isMobile) {
         gsap.fromTo(look2Ref.current,
           { y: 80 },
           {
@@ -58,7 +61,7 @@ export default function TelemetryGrid() {
         );
       }
 
-      if (look3Ref.current) {
+      if (look3Ref.current && !isMobile) {
         gsap.fromTo(look3Ref.current,
           { y: 20 },
           {
@@ -74,7 +77,7 @@ export default function TelemetryGrid() {
         );
       }
 
-      if (look4Ref.current) {
+      if (look4Ref.current && !isMobile) {
         gsap.fromTo(look4Ref.current,
           { y: 60 },
           {
@@ -90,7 +93,7 @@ export default function TelemetryGrid() {
         );
       }
 
-      if (look5Ref.current) {
+      if (look5Ref.current && !isMobile) {
         gsap.fromTo(look5Ref.current,
           { y: 30 },
           {
@@ -152,7 +155,7 @@ export default function TelemetryGrid() {
         })
         .to(innerWrapperRef.current, {
           scale: 0, // Shrink wrapper completely
-          rotation: 12, // Rotate by 12 degrees to match COLLECTION animation behavior
+          rotation: isMobile ? 0 : 12, // Disable rotation on mobile for cleaner scaling and performance
           ease: "power2.inOut",
         });
       }

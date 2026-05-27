@@ -49,7 +49,18 @@ export default function Loader({ onComplete }: LoaderProps) {
       document.body.style.overflow = 'hidden';
     }
 
+    // Detect mobile viewport for responsive animation values
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
     const ctx = gsap.context(() => {
+      // Sync GSAP with CSS percentage-based translations to prevent pixel parsing errors
+      if (imageContainerRef.current) {
+        gsap.set(imageContainerRef.current, { xPercent: -50, yPercent: -50, x: 0, y: 0 });
+      }
+      if (titleRef.current) {
+        gsap.set(titleRef.current, { xPercent: -50, yPercent: -50, x: 0, y: 0 });
+      }
+
       const tl = gsap.timeline({
         onComplete: () => {
           setIsComplete(true);
@@ -95,13 +106,17 @@ export default function Loader({ onComplete }: LoaderProps) {
         });
       }
 
+      // Mobile: expand to full-screen (matching Hero's full-bleed mobile layout)
+      // Desktop: expand to left-half (matching Hero's 50/50 split)
       if (imageContainerRef.current) {
         tl.to(imageContainerRef.current, {
           left: 0,
           top: 0,
           xPercent: 0,
           yPercent: 0,
-          width: '50vw',
+          x: 0,
+          y: 0,
+          width: isMobile ? '100vw' : '50vw',
           height: '100vh',
           duration: 1.2,
           ease: 'power4.inOut',
@@ -118,15 +133,27 @@ export default function Loader({ onComplete }: LoaderProps) {
       }
 
       // Phase 3: OBSCURA appears
+      // Mobile: centered, horizontal (matching Hero's overlay h1)
+      // Desktop: left-offset, rotated -90deg (matching Hero's vertical title)
       if (titleRef.current) {
         tl.to(titleRef.current, {
           opacity: 1,
           filter: 'blur(0px)',
           scale: 1,
-          x: '16.5vw',
-          xPercent: -50,
-          yPercent: -50,
-          rotation: -90,
+          ...(isMobile
+            ? {
+                x: 0,
+                xPercent: -50,
+                yPercent: -50,
+                rotation: 0,
+              }
+            : {
+                x: '16.5vw',
+                xPercent: -50,
+                yPercent: -50,
+                rotation: -90,
+              }
+          ),
           duration: 1.5,
           ease: 'power3.out',
         }, '-=0.8');
@@ -168,7 +195,7 @@ export default function Loader({ onComplete }: LoaderProps) {
               alt=""
               fill
               priority
-              sizes="30vw"
+              sizes="(max-width: 768px) 65vw, 30vw"
             />
           </div>
         ))}

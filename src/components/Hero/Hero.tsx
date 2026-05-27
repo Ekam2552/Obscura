@@ -16,6 +16,8 @@ export default function Hero() {
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
+
     const ctx = gsap.context(() => {
       // Entrance for images and tags
       gsap.from(imageRef.current, {
@@ -37,58 +39,91 @@ export default function Hero() {
         scrollTrigger: {
           trigger: heroRef.current,
           start: "top top",
-          end: "+=350%", // Adjusted for snappier transition
+          // Mobile: shorter scroll distance since image is already full-width
+          end: isMobile ? "+=200%" : "+=350%",
           scrub: 1,
           pin: true,
           invalidateOnRefresh: true,
         }
       });
 
-      // PHASE 1: Expand Hero Image
-      tl.to(leftRef.current, {
-        flex: "0 0 100%",
-        ease: "none",
-        duration: 1
-      }, 0);
+      if (isMobile) {
+        // MOBILE: Image is already full-width, skip Phase 1
+        // Just fade out the overlay elements gently
+        tl.to(rightRef.current, {
+          opacity: 0,
+          ease: "none",
+          duration: 0.5
+        }, 0);
 
-      tl.to(rightRef.current, {
-        flex: "0 0 0%",
-        opacity: 0,
-        ease: "none",
-        duration: 1
-      }, 0);
+        // BUFFER
+        tl.to({}, { duration: 0.3 });
 
-      tl.to(textRef.current, {
-        x: "10vw",
-        ease: "none",
-        duration: 1
-      }, 0);
+        // PHASE 2: Slide hero out, reveal grid
+        tl.to(leftRef.current, {
+          x: "100vw",
+          ease: "none",
+          duration: 1
+        });
 
-      tl.to(tagRef.current, {
-        x: "70vw",
-        ease: "none",
-        duration: 1
-      }, 0);
+        tl.to(gridRef.current, {
+          x: "0%",
+          ease: "none",
+          duration: 1
+        }, "<");
 
-      // BUFFER 1: Stay at full width hero
-      tl.to({}, { duration: 0.5 });
+        // BUFFER: Stay pinned on grid
+        tl.to({}, { duration: 0.5 });
 
-      // PHASE 2: Shrink Hero Left-to-Right & Reveal Grid
-      tl.to(leftRef.current, {
-        flex: "0 0 0%",
-        x: "100vw",
-        ease: "none",
-        duration: 1
-      });
+      } else {
+        // DESKTOP: Original full animation
 
-      tl.to(gridRef.current, {
-        x: "0%",
-        ease: "none",
-        duration: 1
-      }, "<");
+        // PHASE 1: Expand Hero Image
+        tl.to(leftRef.current, {
+          flex: "0 0 100%",
+          ease: "none",
+          duration: 1
+        }, 0);
 
-      // BUFFER 2: Stay pinned on EditorialGrid
-      tl.to({}, { duration: 0.7 });
+        tl.to(rightRef.current, {
+          flex: "0 0 0%",
+          opacity: 0,
+          ease: "none",
+          duration: 1
+        }, 0);
+
+        tl.to(textRef.current, {
+          x: "10vw",
+          ease: "none",
+          duration: 1
+        }, 0);
+
+        tl.to(tagRef.current, {
+          x: "70vw",
+          ease: "none",
+          duration: 1
+        }, 0);
+
+        // BUFFER 1: Stay at full width hero
+        tl.to({}, { duration: 0.5 });
+
+        // PHASE 2: Shrink Hero Left-to-Right & Reveal Grid
+        tl.to(leftRef.current, {
+          flex: "0 0 0%",
+          x: "100vw",
+          ease: "none",
+          duration: 1
+        });
+
+        tl.to(gridRef.current, {
+          x: "0%",
+          ease: "none",
+          duration: 1
+        }, "<");
+
+        // BUFFER 2: Stay pinned on EditorialGrid
+        tl.to({}, { duration: 0.7 });
+      }
 
       // GLOBAL IMAGE ZOOM: Spans the entire timeline smoothly
       tl.fromTo(imageRef.current, { 

@@ -74,3 +74,31 @@ html.lighthouse-bot {
     }
   }
 }
+
+// Mobile: Larger initial card stack, matching Hero mobile end-state
+@media (max-width: 768px) {
+  .loader-screen {
+    .loader-images {
+      width: 65vw;
+      height: 45vh;
+    }
+
+    .loader-title h1 {
+      font-size: clamp(3.5rem, 14vw, 7rem);
+    }
+  }
+}
+
+// Tablet
+@media (min-width: 769px) and (max-width: 1024px) {
+  .loader-screen {
+    .loader-images {
+      width: 40vw;
+      height: 40vh;
+    }
+
+    .loader-title h1 {
+      font-size: clamp(4rem, 10vw, 8rem);
+    }
+  }
+}

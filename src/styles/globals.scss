@@ -46,6 +46,12 @@ html, body {
   width: 100%;
 }
 
+main {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
 body {
   min-height: 100vh;
   position: relative;
@@ -151,5 +157,31 @@ body {
     background-color: var(--foreground);
     color: var(--background);
   }
+}
+
+// 6. Touch Device Guards
+// Disable transform/filter hover effects on touch devices to prevent sticky :hover on iOS/Android
+@media (hover: none) {
+  .luxury-image-filter:hover {
+    filter: contrast(1.05) brightness(0.95);
+    transform: none;
+  }
+}
+
+// 7. Mobile Spacing Overrides
+@media (max-width: 768px) {
+  .massive-spacing {
+    padding-top: 12vh;
+    padding-bottom: 12vh;
+  }
+}
+
+// 8. Touch Utility Classes
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 

@@ -19,13 +19,13 @@ class Particle {
   vy: number;
   density: number;
 
-  constructor(x: number, y: number, color: string) {
+  constructor(x: number, y: number, color: string, size: number = 2.6) {
     this.x = x;
     this.y = y;
     this.baseX = x;
     this.baseY = y;
     this.color = color;
-    this.size = 2; 
+    this.size = size; 
     this.vx = 0;
     this.vy = 0;
     this.density = Math.random() * 8 + 1; 
@@ -151,7 +151,24 @@ export default function ParticleImage({ images, activeIndex, alt }: ParticleImag
       const data = imageData.data;
       
       const newTargets: {x: number, y: number, color: string}[] = [];
-      const gap = 5; 
+      const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 1024;
+      const isMobile = screenWidth <= 768;
+      const isTablet = screenWidth > 768 && screenWidth <= 1024;
+      
+      let gap = 5;
+      let pSize = 2.6;
+
+      if (isMobile) {
+        gap = 5;
+        pSize = 2.6;
+      } else if (isTablet) {
+        gap = 8; // Coarser gap for performance on tablet screens, reducing density
+        pSize = 3.6; // Scale particle size up to fill the gaps
+      } else {
+        gap = 5;
+        pSize = 2.6;
+      }
+
       for (let y = 0; y < height; y += gap) {
         for (let x = 0; x < width; x += gap) {
           const index = (y * width + x) * 4;
@@ -167,7 +184,7 @@ export default function ParticleImage({ images, activeIndex, alt }: ParticleImag
       }
 
       if (!isInitialized.current || particlesArray.current.length === 0) {
-        particlesArray.current = newTargets.map(t => new Particle(t.x, t.y, t.color));
+        particlesArray.current = newTargets.map(t => new Particle(t.x, t.y, t.color, pSize));
         isInitialized.current = true;
       } else {
         // Swarm Transition: 
@@ -187,6 +204,7 @@ export default function ParticleImage({ images, activeIndex, alt }: ParticleImag
             p.baseX = target.x;
             p.baseY = target.y;
             p.color = target.color;
+            p.size = pSize; // Ensure size is updated for recycled particles
             // Kick the particles slightly so they explode outwards when changing
             p.vx = (Math.random() - 0.5) * 40;
             p.vy = (Math.random() - 0.5) * 40;
@@ -194,7 +212,7 @@ export default function ParticleImage({ images, activeIndex, alt }: ParticleImag
           } else {
             const spawnX = Math.random() * width;
             const spawnY = Math.random() * height;
-            const p = new Particle(spawnX, spawnY, target.color);
+            const p = new Particle(spawnX, spawnY, target.color, pSize);
             p.baseX = target.x;
             p.baseY = target.y;
             newParticles.push(p);
@@ -258,6 +276,33 @@ export default function ParticleImage({ images, activeIndex, alt }: ParticleImag
       mouse.current.y = -1000;
     };
 
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.cancelable) {
+        e.preventDefault(); // Stop page scroll
+      }
+      if (e.touches.length > 0) {
+        const rect = canvas.getBoundingClientRect();
+        mouse.current.x = e.touches[0].clientX - rect.left;
+        mouse.current.y = e.touches[0].clientY - rect.top;
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.cancelable) {
+        e.preventDefault(); // Stop page scroll while dragging
+      }
+      if (e.touches.length > 0) {
+        const rect = canvas.getBoundingClientRect();
+        mouse.current.x = e.touches[0].clientX - rect.left;
+        mouse.current.y = e.touches[0].clientY - rect.top;
+      }
+    };
+
+    const handleTouchEnd = () => {
+      mouse.current.x = -1000;
+      mouse.current.y = -1000;
+    };
+
     const handleResize = () => {
       if (canvas.width !== container.clientWidth) {
         canvas.width = container.clientWidth;
@@ -268,11 +313,21 @@ export default function ParticleImage({ images, activeIndex, alt }: ParticleImag
     window.addEventListener("resize", handleResize);
     window.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseleave", handleMouseLeave);
+    
+    canvas.addEventListener("touchstart", handleTouchStart, { passive: false });
+    canvas.addEventListener("touchmove", handleTouchMove, { passive: false });
+    canvas.addEventListener("touchend", handleTouchEnd, { passive: true });
+    canvas.addEventListener("touchcancel", handleTouchEnd, { passive: true });
 
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
+      
+      canvas.removeEventListener("touchstart", handleTouchStart);
+      canvas.removeEventListener("touchmove", handleTouchMove);
+      canvas.removeEventListener("touchend", handleTouchEnd);
+      canvas.removeEventListener("touchcancel", handleTouchEnd);
     };
   }, []);
 

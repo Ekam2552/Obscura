@@ -70,13 +70,15 @@ export default function CtaSection() {
   }, [wordIndex]);
 
   useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
+
     const ctx = gsap.context(() => {
       // Zoom out entrance animation perfectly synced with lookbook shrinking
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: document.querySelector(".luxury-lookbook-section") || undefined,
           start: "bottom bottom",
-          end: "+=100%",
+          end: "+=180%", // Pin longer to allow static interactive hold
           pin: containerRef.current,
           pinSpacing: true,
           scrub: 1,
@@ -87,7 +89,7 @@ export default function CtaSection() {
       tl.to({}, { duration: 4.0 });
 
       tl.fromTo('.cta-content',
-        { scale: 2.5, rotation: 5, opacity: 0 },
+        { scale: isMobile ? 1.8 : 2.5, rotation: isMobile ? 0 : 5, opacity: 0 },
         { scale: 1, rotation: 0, opacity: 1, duration: 3.5, ease: "power3.in" },
         0.5
       );
@@ -116,37 +118,70 @@ export default function CtaSection() {
         3.0
       );
 
+      // Static hold for the remaining 80% scroll so user can interact with the canvas/form
+      tl.to({}, { duration: 3.2 });
+
       // Magnetic Button Effect
       const btn = btnRef.current;
       if (btn) {
-        const hoverEffect = (e: MouseEvent) => {
-          const rect = btn.getBoundingClientRect();
-          const x = (e.clientX - rect.left - rect.width / 2) * 0.4; // 0.4 magnet strength
-          const y = (e.clientY - rect.top - rect.height / 2) * 0.4;
+        const isTouchDevice = typeof window !== 'undefined' && 
+          ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
-          gsap.to(btn, {
-            x: x,
-            y: y,
-            duration: 0.6,
-            ease: "power3.out"
-          });
-        };
+        if (isTouchDevice) {
+          const touchStart = () => {
+            gsap.to(btn, {
+              scale: 0.95,
+              duration: 0.2,
+              ease: "power2.out"
+            });
+          };
 
-        const resetEffect = () => {
-          gsap.to(btn, {
-            x: 0,
-            y: 0,
-            duration: 0.6,
-            ease: "elastic.out(1, 0.3)"
-          });
-        };
+          const touchEnd = () => {
+            gsap.to(btn, {
+              scale: 1,
+              duration: 0.5,
+              ease: "elastic.out(1.2, 0.5)"
+            });
+          };
 
-        btn.addEventListener("mousemove", hoverEffect);
-        btn.addEventListener("mouseleave", resetEffect);
-        return () => {
-          btn.removeEventListener("mousemove", hoverEffect);
-          btn.removeEventListener("mouseleave", resetEffect);
-        };
+          btn.addEventListener("touchstart", touchStart, { passive: true });
+          btn.addEventListener("touchend", touchEnd, { passive: true });
+          btn.addEventListener("touchcancel", touchEnd, { passive: true });
+          return () => {
+            btn.removeEventListener("touchstart", touchStart);
+            btn.removeEventListener("touchend", touchEnd);
+            btn.removeEventListener("touchcancel", touchEnd);
+          };
+        } else {
+          const hoverEffect = (e: MouseEvent) => {
+            const rect = btn.getBoundingClientRect();
+            const x = (e.clientX - rect.left - rect.width / 2) * 0.4; // 0.4 magnet strength
+            const y = (e.clientY - rect.top - rect.height / 2) * 0.4;
+
+            gsap.to(btn, {
+              x: x,
+              y: y,
+              duration: 0.6,
+              ease: "power3.out"
+            });
+          };
+
+          const resetEffect = () => {
+            gsap.to(btn, {
+              x: 0,
+              y: 0,
+              duration: 0.6,
+              ease: "elastic.out(1, 0.3)"
+            });
+          };
+
+          btn.addEventListener("mousemove", hoverEffect);
+          btn.addEventListener("mouseleave", resetEffect);
+          return () => {
+            btn.removeEventListener("mousemove", hoverEffect);
+            btn.removeEventListener("mouseleave", resetEffect);
+          };
+        }
       }
     }, containerRef);
 
